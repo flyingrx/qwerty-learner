@@ -1,0 +1,58 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgres"
+  url      = env("DATABASE_URL")
+}
+
+model WordRecord {
+  id        Int            @id @default(autoincrement())
+  word      String
+  timeStamp Int
+  dict      String
+  chapter   Int?
+  timing    Int[]
+  wrongCount Int
+  mistakes  Json
+  chapters  ChapterRecord[]
+}
+
+model ChapterRecord {
+  id                Int         @id @default(autoincrement())
+  dict             String
+  chapter          Int?
+  timeStamp        Int
+  time             Int
+  correctCount     Int
+  wrongCount       Int
+  wordCount        Int
+  correctWordIndexes Int[]
+  wordNumber       Int
+  wordRecords      WordRecord[]
+}
+
+model ReviewRecord {
+  id           Int      @id @default(autoincrement())
+  dict         String
+  index        Int      @default(0)
+  createTime   Int
+  isFinished   Boolean  @default(false)
+  words        Json
+}
+
+model RevisionDictRecord {
+  id            Int      @id @default(autoincrement())
+  dict          String
+  revisionIndex Int
+  createdTime   Int
+}
+
+model RevisionWordRecord {
+  id          Int      @id @default(autoincrement())
+  word        String
+  timeStamp   Int
+  dict        String
+  errorCount  Int
+}
