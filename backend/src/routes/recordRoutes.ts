@@ -1,5 +1,5 @@
-import express, { Request, Response } from 'express'
 import { RecordService } from '../services/recordService'
+import express, { Request, Response } from 'express'
 
 const router = express.Router()
 const recordService = new RecordService()
@@ -38,17 +38,7 @@ router.get('/word-records/:dict/:chapter?', async (req: Request, res: Response) 
 // Chapter Record Routes
 router.post('/chapter-record', async (req: Request, res: Response) => {
   try {
-    const {
-      dict,
-      chapter,
-      time,
-      correctCount,
-      wrongCount,
-      wordCount,
-      correctWordIndexes,
-      wordNumber,
-      wordRecordIds,
-    } = req.body
+    const { dict, chapter, time, correctCount, wrongCount, wordCount, correctWordIndexes, wordNumber, wordRecordIds } = req.body
     const record = await recordService.createChapterRecord(
       dict,
       chapter,
@@ -58,7 +48,7 @@ router.post('/chapter-record', async (req: Request, res: Response) => {
       wordCount,
       correctWordIndexes,
       wordNumber,
-      wordRecordIds
+      wordRecordIds,
     )
     res.json(record)
   } catch (error) {

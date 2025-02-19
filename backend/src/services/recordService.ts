@@ -1,5 +1,5 @@
-import { PrismaClient } from '@prisma/client'
 import type { Word } from '../types'
+import { PrismaClient } from '@prisma/client'
 
 const prisma = new PrismaClient()
 
@@ -11,7 +11,7 @@ export class RecordService {
     chapter: number | null,
     timing: number[],
     wrongCount: number,
-    mistakes: { [key: number]: string[] }
+    mistakes: { [key: number]: string[] },
   ) {
     return prisma.wordRecord.create({
       data: {
@@ -58,7 +58,7 @@ export class RecordService {
     wordCount: number,
     correctWordIndexes: number[],
     wordNumber: number,
-    wordRecordIds: number[]
+    wordRecordIds: number[],
   ) {
     return prisma.chapterRecord.create({
       data: {
@@ -72,7 +72,7 @@ export class RecordService {
         correctWordIndexes,
         wordNumber,
         wordRecords: {
-          connect: wordRecordIds.map(id => ({ id })),
+          connect: wordRecordIds.map((id) => ({ id })),
         },
       },
     })
